@@ -1,23 +1,35 @@
 # FOTA_NTI_GraduationProject
 This repo will be used to Document our Firmware Over The Air graduation project as a part of our 4 month Embedded Diploma sponsored by the NTI
 
-when it comes to the Rapberry PI there were a few steps that needed to be taken before we can use it with : 1) firebase 
-2) UART
-3) run the scipts in the background of the PI ,so you can use if you want for other tasks and you can run multiple tasks at a time (which is handeled by the Systmd of the raspian image).
+
+## Hardware Components Used:
+1- Raspberry Pi 3 model B
+
+2- 3 STM32f103C8T6
+
+3- 2 High-Speed CAN Transceiver MCP2551-I/P 
+
+4- ST Link V2 (optional ...a debugger that was used only during development and it was very useful to solve any bugs in the STM32)  
+
+Note: all these components we bought from a local electronics store in cairo called Ram Electronics but you can find these components in almost any electronics store
 
 
-## Firebase
+## Software Components Used:
+1- Raspbian Image for the Raspberry PI -> you can download it from there : https://www.raspberrypi.com/software/
 
-1- this repo was very useful. It provides a python wrapper API to the firebase C++ API -> https://github.com/thisbejim/Pyrebase#storage
+2- Eclipse with the ARM based toolchain
+
+3- Firebase Accout with Realtime Database Service Configured ->this video had some info about how to set up the Cloud Service  https://www.youtube.com/watch?v=Orp1QqKN5rc&t=338s
+
+4-Vscode with Ssh extension for remote connection to the PI-> this video had all the info i needed : https://www.youtube.com/watch?v=BkQ2hL0fkWM
+
+Note: when downloading the Raspbian Image you need to enable SSH so we can connect Vscode from our PC to the PI so we can deploy and develop code on the PI
 
 
-## UART
+![pi_imager_advanced](https://github.com/ahmed19897/FOTA_NTI_GraduationProject/assets/45523675/1a122508-f7fc-44ba-98d8-5e3c49296916)
 
-the first step we did is to add an overlay in the config.txt of the kernel to assign the ttyAMA0 (which is the main Raspberry Pi serial port for communication with peripherals) to UART communication instead of Bluetooth in our case and this link was very useful for that -> http://www.deater.net/weave/vmwprod/hardware/pi-rts/
 
-the second step was to disconnect the default login shell that is provided over the serial port of the board ,so we can assign the ttyAMA0 solely to our UART communication with the STM. Failure to do so caused UART overrun data because the board was trying to recieve from the STM while writing on the terminal and this link was very useful to do so -> https://www.instructables.com/Raspberry-PI-3-Enable-Serial-Communications-to-Tty/
+## Project Architecture
 
-## run the scipts in the background of the PI
 
-This final step is optional but it is useful because it lets the Kernel handle the script schedulling and other properties that define how to run the python scripts according to your needs.This link was veryuseful ->https://stackoverflow.com/questions/64837834/run-python-script-on-startup-as-root 
-I will put our .service file in the repo ,so you can take a look at it and customize it how you like it.
+![BLOCK DIAG](https://github.com/ahmed19897/FOTA_NTI_GraduationProject/assets/45523675/72e4d33a-99b4-40ac-afef-c28fbfd5e239)
